@@ -1,6 +1,32 @@
-
+import { calculateInvestmentResults, formatter } from '../util/investment.js';
 
 export default function Results({input}){
-    console.log(input);
-    return <p>Results</p>;
+    const resultsData = calculateInvestmentResults(input);
+    const intitlaInvestment = resultsData[0].valueEndOfYear - resultsData[0].interest - resultsData[0].annualInvestment;
+
+    return (
+        <table id="result">
+            <thead>
+                <th>Years</th>
+                <th>Investment Value</th>
+                <th>Interest (Year)</th>
+                <th>Total interest</th>
+                <th>Invested Capital</th>
+            </thead>
+            <tbody>
+                {resultsData.map(yearData =>{
+
+                    const totalInterest = yearData.valueEndOfYear - yearData.annualInvestment * yearData.year - intitlaInvestment;
+                    const totalAmountInvested = yearData.valueEndOfYear - totalInterest;
+                    return <tr key ={yearData.key}>
+                        <td>{yearData.year}</td>
+                        <td>{formatter.format(yearData.valueEndOfYear)}</td>
+                        <td>{formatter.format(yearData.interest)}</td>
+                        <td>{formatter.format(totalInterest)}</td>
+                        <td>{formatter.format(totalAmountInvested)}</td>
+                    </tr>
+                })} 
+            </tbody>
+        </table>
+    );
 }
