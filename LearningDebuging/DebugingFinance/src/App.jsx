@@ -13,10 +13,10 @@ function App() {
   });
 
   function handleChange(inputIdentifier, newValue) {
-    setUserInput((prevUserInput) => {
+    setUserInput((prevUserInput) => { //use breakpoints to find out the problem
       return {
         ...prevUserInput,
-        [inputIdentifier]: newValue,
+        [inputIdentifier]: +newValue,//remove the + to get the buggy code
       };
     });
   }

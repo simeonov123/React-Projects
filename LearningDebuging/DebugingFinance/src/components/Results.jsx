@@ -2,8 +2,16 @@ import { calculateInvestmentResults, formatter } from '../util/investment.js';
 
 
 export default function Results({ input }) {
-  const results = [];
+  
+  const results = [];//move ooutside the func to get buggy code - check index.jsx (StrictMode)
+
   calculateInvestmentResults(input, results);
+
+  //remove this if() here to get the original buggy code
+  if(results.length === 0){
+    return <p className= "center">Invalid input data provided.</p>
+  }
+
   const initialInvestment =
     results[0].valueEndOfYear -
     results[0].interest -
